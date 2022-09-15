@@ -1,8 +1,18 @@
 #include "test_framework/generic_test.h"
 
 short CountBits(unsigned int x) {
-  // TODO - you fill in here.
-  return 0;
+  int bits = (sizeof(x) * 8);
+  char look_up[16] = {0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4};
+
+  int num_bits = 0;
+  for (int i = 0; i < bits; i += 4) {
+    int val = x & 0xF;
+    num_bits += look_up[val];
+
+    x >>= 4;
+  }
+
+  return num_bits;
 }
 
 int main(int argc, char* argv[]) {
